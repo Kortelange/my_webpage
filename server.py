@@ -20,7 +20,7 @@ def get_books():
 @app.route("/quick_thoughts")
 def get_quick_thoughts():
     thoughts = requests.get(posts_link).json()['thoughts']
-    return render_template("quick_thoughts.html", thoughts=thoughts)
+    return render_template("quick_thoughts.html", thoughts=thoughts, title="Quick Thoughts")
 
 if __name__ == "__main__":
     app.run(debug=True)
