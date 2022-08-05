@@ -15,8 +15,8 @@
     <p>My name is Jakob, I like this and that, here is my page with some stuff i like</p>
 
     <ul>
-        <li><a href="#">Books</a></li>
-        <li><a href="#">Quick thoughts</a></li>
+        <li><a href="{{ url_for('get_books') }}">Books</a></li>
+        <li><a href="{{ url_for('get_quick_thoughts') }}">Quick thoughts</a></li>
     </ul>
 
     <div id="some" class="container-md">
