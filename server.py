@@ -15,7 +15,8 @@ def home():
 
 @app.route("/books")
 def get_books():
-    return "Welcome to the books page!"
+    books = requests.get(posts_link).json()['books']
+    return render_template('books.html', books=books, title='Books')
 
 @app.route("/quick_thoughts")
 def get_quick_thoughts():
