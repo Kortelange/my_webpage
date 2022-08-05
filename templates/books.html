@@ -1,11 +1,11 @@
 {% extends "posts_base.html" %}
-{% block title %}Quick Thoughts{% endblock %}
+{% block title %}Books{% endblock %}
 {% block head %}
     {{ super() }}
 {% endblock %}
 {% block content %}
     {% for book in books: %}
-        <h3>{{ book['title'] }}</h3>
+        <a href="{{ url_for('get_book', id=book['id']) }}"><h3>{{ book['title'] }}</h3></a>
         <p>{{ book['short_review'] }}</p>
     {% endfor %}
 {% endblock %}

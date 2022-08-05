@@ -1,0 +1,10 @@
+{% extends "posts_base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block content %}
+    <p>Short review: {{ book['short_review'] }}</p>
+    <p>Rating: {{ book['rating'] }}</p>
+    <p>Long Review: {{ book['long_review'] }}</p>
+{% endblock %}
