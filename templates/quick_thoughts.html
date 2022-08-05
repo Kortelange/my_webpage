@@ -4,8 +4,12 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
+    <div class="container">
     {% for thought in thoughts: %}
-        <h3>{{ thought['title'] }}</h3>
-        <p>{{ thought['thought'] }}</p>
+        <div class="col-md-8 col-lg-6 mx-auto post-box">
+            <h3>{{ thought['title'] }}</h3>
+            <p>{{ thought['thought'] }}</p>
+        </div>
     {% endfor %}
+    </div>
 {% endblock %}

@@ -1,0 +1,10 @@
+h1 {
+    text-align: center;
+}
+
+.post-box {
+    background-color: #ccffff;
+    margin-top: 1.5em;
+    padding: 2% 3%;
+    border-radius: 13%;
+}
