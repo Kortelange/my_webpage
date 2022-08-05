@@ -16,7 +16,7 @@ def get_books():
 
 @app.route("/quick_thoughts")
 def get_quick_thoughts():
-    return "Welcome to the quick thoughts page!"
+    return render_template("quick_thoughts.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
