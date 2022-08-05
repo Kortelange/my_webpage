@@ -4,7 +4,13 @@
     {{ super() }}
 {% endblock %}
 {% block content %}
-    <p>Short review: {{ book['short_review'] }}</p>
-    <p>Rating: {{ book['rating'] }}</p>
-    <p>Long Review: {{ book['long_review'] }}</p>
+<div class="container">
+    <div class="col-10 col-lg-8 mx-auto">
+        <h3>Short review: </h3>
+        <p>{{ book['short_review'] }}</p>
+        <h3>Rating: {{ book['rating'] }}</h3>
+        <h3>Long Review:</h3>
+        <p>{{ book['long_review'] }}</p>
+    </div>
+</div>
 {% endblock %}
