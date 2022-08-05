@@ -1,13 +1,11 @@
 from flask import Flask, render_template
 from dotenv import load_dotenv
-import requests
 import os
+from fake_posts import test_posts
 
 load_dotenv()
 
 app = Flask(__name__)
-
-posts_link = "https://api.npoint.io/04e651e9ca9922d160cd"
 
 @app.route("/")
 def home():
@@ -15,12 +13,12 @@ def home():
 
 @app.route("/books")
 def get_books():
-    books = requests.get(posts_link).json()['books']
+    books = test_posts['books']
     return render_template('books.html', books=books, title='Books')
 
 @app.route("/quick_thoughts")
 def get_quick_thoughts():
-    thoughts = requests.get(posts_link).json()['thoughts']
+    thoughts = test_posts['thoughts']
     return render_template("quick_thoughts.html", thoughts=thoughts, title="Quick Thoughts")
 
 if __name__ == "__main__":
