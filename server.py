@@ -1,10 +1,13 @@
 from flask import Flask, render_template
 from dotenv import load_dotenv
+import requests
 import os
 
 load_dotenv()
 
 app = Flask(__name__)
+
+posts_link = "https://api.npoint.io/04e651e9ca9922d160cd"
 
 @app.route("/")
 def home():
@@ -16,7 +19,8 @@ def get_books():
 
 @app.route("/quick_thoughts")
 def get_quick_thoughts():
-    return render_template("quick_thoughts.html")
+    thoughts = requests.get(posts_link).json()['thoughts']
+    return render_template("quick_thoughts.html", thoughts=thoughts)
 
 if __name__ == "__main__":
     app.run(debug=True)

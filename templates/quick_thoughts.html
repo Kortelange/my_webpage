@@ -20,5 +20,9 @@
         </ul>
     </nav>
     <h1>Quick thoughts</h1>
+    {% for thought in thoughts: %}
+        <h3>{{ thought['title'] }}</h3>
+        <p>{{ thought['thought'] }}</p>
+    {% endfor %}
 </body>
 </html>
