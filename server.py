@@ -83,12 +83,6 @@ def get_books():
     return render_template('books.html', books=books, title='Books')
 
 
-@app.route("/books/<int:id>")
-def get_book(id):
-    book = Book.query.get(id)
-    return render_template('book.html', book=book, title=book.title)
-
-
 @app.route("/books/new", methods=["GET", "POST"])
 def new_book():
     form = BookForm()
@@ -109,10 +103,29 @@ def new_book():
     return render_template('new_book.html', title='New Book', form=form)
 
 
+# @app.route("books/delete/<int:id>")
+# def delete_book(id):
+
+
+
+@app.route("/books/<int:id>")
+def get_book(id):
+    book = Book.query.get(id)
+    return render_template('book.html', book=book, title=book.title)
+
+
 @app.route("/quick_thoughts")
 def get_quick_thoughts():
     thoughts = QuickThought.query.all()
     return render_template("quick_thoughts.html", thoughts=thoughts, title="Quick Thoughts")
+
+
+@app.route("/quick_thoughts/delete/<int:id>")
+def delete_quick_thought(id):
+    thought = QuickThought.query.get(id)
+    db.session.delete(thought)
+    db.session.commit()
+    return redirect("/quick_thoughts")
 
 
 @app.route("/quick_thoughts/new", methods=["GET", "POST"])
