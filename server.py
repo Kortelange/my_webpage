@@ -21,6 +21,15 @@ class QuickThought(db.Model):
     title = db.Column(db.String(200), unique=True, nullable=False)
     content = db.Column(db.Text, nullable=False)
 
+class Book(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    author = db.Column(db.String(200), nullable=False)
+    short_review = db.Column(db.Text, nullable=True)
+    body = db.Column(db.Text, nullable=False)
+    rating = db.Column(db.Integer, nullable=True)
+
+
 db.create_all()
 
 
@@ -30,12 +39,26 @@ db.create_all()
 #        QuickThought(title=thought['title'], content=thought['thought'])
 #    )
 #    db.session.commit()
+# for book in test_posts['books']:
+#     db.session.add(
+#         Book(
+#             title=book['title'],
+#             author=book['author'],
+#             short_review=book['short_review'],
+#             body=book['long_review'],
+#             rating=book['rating']
+#         )
+#     )
+#     db.session.commit()
 
 
 class QuickThoughtForm(FlaskForm):
     title = StringField('title', validators=[DataRequired()])
     content = StringField('content', validators=[DataRequired()])
     submit = SubmitField(label="Add thought")
+
+# class BookForm(FlaskForm):
+#     title = StringField('title', )
 
 
 def get_book_from_id(id):
@@ -49,7 +72,7 @@ def home():
 
 @app.route("/books")
 def get_books():
-    books = test_posts['books']
+    books = Book.query.all()
     return render_template('books.html', books=books, title='Books')
 
 
@@ -61,7 +84,7 @@ def get_book(id):
 
 @app.route("/books/new")
 def new_book():
-    return "hello"
+    return render_template('new_book.html', title='New Book')
 
 
 @app.route("/quick_thoughts")

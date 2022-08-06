@@ -6,11 +6,12 @@
 {% block content %}
 <div class="container">
     <div class="col-10 col-lg-8 mx-auto">
+        <h3>Written by {{ book['author'] }}</h3>
         <h3>Short review: </h3>
         <p>{{ book['short_review'] }}</p>
         <h3>Rating: {{ book['rating'] }}</h3>
         <h3>Long Review:</h3>
-        <p>{{ book['long_review'] }}</p>
+        <p>{{ book['body'] }}</p>
     </div>
 </div>
 {% endblock %}
