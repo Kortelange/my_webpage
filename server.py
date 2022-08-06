@@ -103,8 +103,12 @@ def new_book():
     return render_template('new_book.html', title='New Book', form=form)
 
 
-# @app.route("books/delete/<int:id>")
-# def delete_book(id):
+@app.route("/books/delete/<int:id>")
+def delete_book(id):
+    book = Book.query.get(id)
+    db.session.delete(book)
+    db.session.commit()
+    return redirect("/books")
 
 
 
