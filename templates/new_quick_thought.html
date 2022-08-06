@@ -2,15 +2,20 @@
 {% block title %}{{ title }}{% endblock %}
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="/static/css/forms.css">
 {% endblock %}
 {% block content %}
     <div class="container">
-        <form method="POST" action="/quick_thoughts/new">
-            {{ form.csrf_token }}
-            {{ form.title.label }} {{ form.title(size=20) }}
-            {{ form.content.label }}{{ form.content }}
-            {{ form.submit }}
-        </form>
+        <div class="col-11 col-md-10 mx-auto">
+            <form method="POST" action="/quick_thoughts/new">
+                {{ form.csrf_token }}
+                {{ form.title.label(class_="form-label") }}
+                {{ form.title(size=20, class_="form-control") }}
+                {{ form.content.label(class_="form-label") }}
+                {{ form.content(class_="form-control") }}
+                {{ form.submit(class_="btn btn-primary") }}
+            </form>
+        </div>
     </div>
 {% endblock %}
 
