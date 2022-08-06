@@ -5,6 +5,11 @@
 {% endblock %}
 {% block content %}
 <div class="container">
+    <div class="d-grid col-10 mx-auto">
+        <form action="{{ url_for('new_book') }}" class="mx-auto">
+            <button type="submit" class="btn btn-success">New book</button>
+        </form>
+    </div>
     {% for book in books: %}
     <div class="col-md-8 col-lg-6 mx-auto post-box">
         <a href="{{ url_for('get_book', id=book['id']) }}"><h3>{{ book['title'] }}</h3></a>

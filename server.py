@@ -85,13 +85,27 @@ def get_books():
 
 @app.route("/books/<int:id>")
 def get_book(id):
-    book = get_book_from_id(id)
-    return render_template('book.html', book=book, title=book['title'])
+    book = Book.query.get(id)
+    return render_template('book.html', book=book, title=book.title)
 
 
-@app.route("/books/new")
+@app.route("/books/new", methods=["GET", "POST"])
 def new_book():
     form = BookForm()
+    if form.validate_on_submit():
+        print("heloo im here!")
+        book = Book(
+                title=form.title.data,
+                author=form.author.data,
+                short_review=form.short_review.data,
+                body=form.body.data,
+                rating=form.rating.data
+            )
+        db.session.add(
+            book
+        )
+        db.session.commit()
+        return redirect(f"/books/{book.id}")
     return render_template('new_book.html', title='New Book', form=form)
 
 
