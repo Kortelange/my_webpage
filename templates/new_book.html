@@ -1,0 +1,29 @@
+{% extends "posts_base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="/static/css/forms.css">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="col-11 col-md-10 mx-auto">
+            <form method="POST" action="/books/new">
+                {{ form.csrf_token }}
+                {{ form.title.label(class_="form-label") }}
+                {{ form.title(class_="form-control") }}
+                {{ form.author.label(class_="form-label") }}
+                {{ form.author(class_="form-control") }}
+                {{ form.short_review.label(class_="form-label") }}
+                {{ form.short_review(class_="form-control") }}
+                {{ form.body.label(class_="form-label") }}
+                {{ form.body(class_="form-control") }}
+                {{ form.rating.label(class_="form-label") }}
+                {{ form.rating(class_="form-control") }}
+
+                {{ form.submit(class_="btn btn-primary") }}
+            </form>
+        </div>
+    </div>
+    {{ ckeditor.load() }}
+    {{ ckeditor.config(name='body') }}
+{% endblock %}

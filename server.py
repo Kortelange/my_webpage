@@ -4,16 +4,18 @@ import os
 from fake_posts import test_posts
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired
+from flask_ckeditor import CKEditor, CKEditorField
 
 
 load_dotenv()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///my_webpage.db"
-
 app.secret_key = "very secret"
+ckeditor = CKEditor(app)
+
 db = SQLAlchemy(app)
 
 class QuickThought(db.Model):
@@ -57,8 +59,13 @@ class QuickThoughtForm(FlaskForm):
     content = StringField('content', validators=[DataRequired()])
     submit = SubmitField(label="Add thought")
 
-# class BookForm(FlaskForm):
-#     title = StringField('title', )
+class BookForm(FlaskForm):
+    title = StringField('title', validators=[DataRequired()])
+    author = StringField('author', validators=[DataRequired()])
+    short_review = StringField('short review')
+    body = CKEditorField('body')
+    rating = FloatField('rating')
+    submit = SubmitField('Add book')
 
 
 def get_book_from_id(id):
@@ -84,7 +91,8 @@ def get_book(id):
 
 @app.route("/books/new")
 def new_book():
-    return render_template('new_book.html', title='New Book')
+    form = BookForm()
+    return render_template('new_book.html', title='New Book', form=form)
 
 
 @app.route("/quick_thoughts")
