@@ -7,6 +7,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired
 from flask_ckeditor import CKEditor, CKEditorField
+from models import QuickThought, Book, db
+
 
 
 load_dotenv()
@@ -15,24 +17,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///my_webpage.db"
 app.secret_key = "very secret"
 ckeditor = CKEditor(app)
+db.init_app(app)
 
-db = SQLAlchemy(app)
+# db.create_all()
 
-class QuickThought(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), unique=True, nullable=False)
-    content = db.Column(db.Text, nullable=False)
-
-class Book(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    author = db.Column(db.String(200), nullable=False)
-    short_review = db.Column(db.Text, nullable=True)
-    body = db.Column(db.Text, nullable=False)
-    rating = db.Column(db.Integer, nullable=True)
-
-
-db.create_all()
 
 
 # populate database
