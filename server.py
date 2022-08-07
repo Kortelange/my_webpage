@@ -47,6 +47,7 @@ def new_book():
         )
         db.session.commit()
         return redirect(f"/books/{book.id}")
+
     return render_template(
         'new_book.html',
         title='New Book',
@@ -105,7 +106,31 @@ def new_quick_thought():
         )
         db.session.commit()
         return redirect("/quick_thoughts")
-    return render_template("new_quick_thought.html", form=form, title="New Thought")
+
+    return render_template(
+        "new_quick_thought.html",
+        form=form,
+        title="New Thought",
+        action="/quick_thoughts/new"
+    )
+
+
+@app.route("/quick_thoughts/<int:id>/edit", methods=["GET", "POST"])
+def edit_quick_thought(id):
+    thought = QuickThought.query.get(id)
+    form = QuickThoughtForm(obj=thought)
+    if form.validate_on_submit():
+        form.populate_obj(thought)
+        db.session.commit()
+        return redirect("/quick_thoughts")
+
+    form.submit.label.text = "Update"
+    return render_template(
+        "new_quick_thought.html",
+        form=form,
+        title=f"Edit {thought.title}",
+        action=f"/quick_thoughts/{thought.id}/edit"
+    )
 
 
 
