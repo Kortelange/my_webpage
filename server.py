@@ -47,7 +47,12 @@ def new_book():
         )
         db.session.commit()
         return redirect(f"/books/{book.id}")
-    return render_template('new_book.html', title='New Book', form=form)
+    return render_template(
+        'new_book.html',
+        title='New Book',
+        form=form,
+        action="/books/new"
+    )
 
 
 @app.route("/books/delete/<int:id>")
@@ -64,13 +69,22 @@ def get_book(id):
     return render_template('book.html', book=book, title=book.title)
 
 
-@app.route("/books/<int:id>/edit")
+@app.route("/books/<int:id>/edit", methods=["GET","POST"])
 def edit_book(id):
     book = Book.query.get(id)
     form = BookForm(obj=book)
-    # print(form.submit.label.text)
+    if form.validate_on_submit():
+        form.populate_obj(book)
+        db.session.commit()
+        return redirect(f"/books/{book.id}")
+
     form.submit.label.text = "Update"
-    return render_template('new_book.html', form=form, title=f'Edit {book.title}')
+    return render_template(
+        'new_book.html',
+        form=form,
+        title=f'Edit {book.title}',
+        action=f'/books/{book.id}/edit'
+    )
 
 
 @app.route("/quick_thoughts")

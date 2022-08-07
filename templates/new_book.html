@@ -7,7 +7,7 @@
 {% block content %}
     <div class="container">
         <div class="col-11 col-md-10 mx-auto">
-            <form method="POST" action="/books/new">
+            <form method="POST" action="{{ action }}">
                 {{ form.csrf_token }}
                 {{ form.title.label(class_="form-label") }}
                 {{ form.title(class_="form-control") }}
