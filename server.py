@@ -3,12 +3,11 @@ from dotenv import load_dotenv
 import os
 from fake_posts import test_posts
 from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired
 from flask_ckeditor import CKEditor, CKEditorField
 from models import QuickThought, Book, db
-
+from forms import QuickThoughtForm, BookForm
 
 
 load_dotenv()
@@ -18,7 +17,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///my_webpage.db"
 app.secret_key = "very secret"
 ckeditor = CKEditor(app)
 db.init_app(app)
-
 # db.create_all()
 
 
@@ -40,20 +38,6 @@ db.init_app(app)
 #         )
 #     )
 #     db.session.commit()
-
-
-class QuickThoughtForm(FlaskForm):
-    title = StringField('title', validators=[DataRequired()])
-    content = StringField('content', validators=[DataRequired()])
-    submit = SubmitField(label="Add thought")
-
-class BookForm(FlaskForm):
-    title = StringField('title', validators=[DataRequired()])
-    author = StringField('author', validators=[DataRequired()])
-    short_review = StringField('short review')
-    body = CKEditorField('body')
-    rating = FloatField('rating')
-    submit = SubmitField('Add book')
 
 
 def get_book_from_id(id):
