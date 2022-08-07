@@ -14,4 +14,4 @@ class BookForm(FlaskForm):
     short_review = StringField('short review')
     body = CKEditorField('body')
     rating = FloatField('rating')
-    submit = SubmitField('Add book')
+    submit = SubmitField(label='Add book')

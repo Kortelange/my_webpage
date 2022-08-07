@@ -11,7 +11,7 @@
         <p>{{ book.short_review }}</p>
         <h3>Rating: {{ book.rating }}</h3>
         <h3>Long Review:</h3>
-        <p>{{ book.body | safe }}</p>
+        {{ book.body | safe }}
     </div>
 </div>
 {% endblock %}

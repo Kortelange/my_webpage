@@ -20,34 +20,10 @@ db.init_app(app)
 # db.create_all()
 
 
-
-# populate database
-# for thought in test_posts['thoughts']:
-#    db.session.add(
-#        QuickThought(title=thought['title'], content=thought['thought'])
-#    )
-#    db.session.commit()
-# for book in test_posts['books']:
-#     db.session.add(
-#         Book(
-#             title=book['title'],
-#             author=book['author'],
-#             short_review=book['short_review'],
-#             body=book['long_review'],
-#             rating=book['rating']
-#         )
-#     )
-#     db.session.commit()
-
-
-def get_book_from_id(id):
-    for book in test_posts['books']:
-        if book['id'] == id:
-            return book
-
 @app.route("/")
 def home():
     return render_template("index.html", fa_kit=os.environ.get("FA_KIT"))
+
 
 @app.route("/books")
 def get_books():
@@ -59,7 +35,6 @@ def get_books():
 def new_book():
     form = BookForm()
     if form.validate_on_submit():
-        print("heloo im here!")
         book = Book(
                 title=form.title.data,
                 author=form.author.data,
@@ -83,25 +58,25 @@ def delete_book(id):
     return redirect("/books")
 
 
-
 @app.route("/books/<int:id>")
 def get_book(id):
     book = Book.query.get(id)
     return render_template('book.html', book=book, title=book.title)
 
 
+@app.route("/books/<int:id>/edit")
+def edit_book(id):
+    book = Book.query.get(id)
+    form = BookForm(obj=book)
+    # print(form.submit.label.text)
+    form.submit.label.text = "Update"
+    return render_template('new_book.html', form=form, title=f'Edit {book.title}')
+
+
 @app.route("/quick_thoughts")
 def get_quick_thoughts():
     thoughts = QuickThought.query.all()
     return render_template("quick_thoughts.html", thoughts=thoughts, title="Quick Thoughts")
-
-
-@app.route("/quick_thoughts/delete/<int:id>")
-def delete_quick_thought(id):
-    thought = QuickThought.query.get(id)
-    db.session.delete(thought)
-    db.session.commit()
-    return redirect("/quick_thoughts")
 
 
 @app.route("/quick_thoughts/new", methods=["GET", "POST"])
@@ -117,6 +92,15 @@ def new_quick_thought():
         db.session.commit()
         return redirect("/quick_thoughts")
     return render_template("new_quick_thought.html", form=form, title="New Thought")
+
+
+
+@app.route("/quick_thoughts/delete/<int:id>")
+def delete_quick_thought(id):
+    thought = QuickThought.query.get(id)
+    db.session.delete(thought)
+    db.session.commit()
+    return redirect("/quick_thoughts")
 
 
 if __name__ == "__main__":
