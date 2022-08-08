@@ -5,17 +5,19 @@
 {% endblock %}
 {% block content %}
     <div class="container">
-        <div class="d-grid col-10 mx-auto">
-        <form action="{{ url_for('new_quick_thought') }}" class="mx-auto">
-            <button type="submit" class="btn btn-success">New quick thought</button>
-        </form>
-    </div>
+        {% if current_user.is_authenticated and current_user.get_id() == "1" %}
+        <div class="d-grid col-6 col-md-5 col-lg-3 mx-auto">
+            <a href="{{ url_for('new_quick_thought') }}" class="btn btn-success">New quick thought</a>
+        </div>
+        {% endif %}
     {% for thought in thoughts: %}
         <div class="col-md-8 col-lg-6 mx-auto post-box">
             <h3>{{ thought.title }}</h3>
             <p>{{ thought.content }}</p>
+            {% if current_user.is_authenticated and current_user.get_id() == "1" %}
             <a href="{{ url_for('edit_quick_thought', id=thought.id)  }}" class="btn btn-warning">Edit</a>
             <a href="{{ url_for('delete_quick_thought', id=thought.id) }}" class="btn btn-danger">Delete</a>
+            {% endif %}
         </div>
     {% endfor %}
     </div>

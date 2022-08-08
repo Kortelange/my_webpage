@@ -9,7 +9,7 @@ from flask_ckeditor import CKEditor, CKEditorField
 from models import QuickThought, Book, db, User
 from forms import QuickThoughtForm, BookForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user
+from flask_login import LoginManager, login_user, logout_user
 
 
 load_dotenv()
@@ -50,6 +50,12 @@ def login():
             print("user logged in!")
         return redirect(url_for('home'))
     return render_template("login.html", form=form)
+
+
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for("home"))
 
 
 @app.route("/books")

@@ -20,6 +20,11 @@
             <li class="nav-item">
                 <a href="{{ url_for('get_books') }}" class="nav-link active">Books</a>
             </li>
+            {% if current_user.is_authenticated %}
+            <li class="nav-item">
+                <a href="{{ url_for('logout') }}" class="nav-link active">Logout</a>
+            </li>
+            {% endif %}
         </ul>
     </nav>
 
