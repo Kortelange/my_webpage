@@ -9,7 +9,7 @@ from flask_ckeditor import CKEditor, CKEditorField
 from models import QuickThought, Book, db, User
 from forms import QuickThoughtForm, BookForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager, login_user, logout_user
+from flask_login import LoginManager, login_user, logout_user, login_required
 
 
 load_dotenv()
@@ -65,6 +65,7 @@ def get_books():
 
 
 @app.route("/books/new", methods=["GET", "POST"])
+@login_required
 def new_book():
     form = BookForm()
     if form.validate_on_submit():
@@ -91,6 +92,7 @@ def new_book():
 
 
 @app.route("/books/delete/<int:id>")
+@login_required
 def delete_book(id):
     book = Book.query.get(id)
     db.session.delete(book)
@@ -105,6 +107,7 @@ def get_book(id):
 
 
 @app.route("/books/<int:id>/edit", methods=["GET","POST"])
+@login_required
 def edit_book(id):
     book = Book.query.get(id)
     form = BookForm(obj=book)
@@ -129,6 +132,7 @@ def get_quick_thoughts():
 
 
 @app.route("/quick_thoughts/new", methods=["GET", "POST"])
+@login_required
 def new_quick_thought():
     form = QuickThoughtForm()
     if form.validate_on_submit():
@@ -150,6 +154,7 @@ def new_quick_thought():
 
 
 @app.route("/quick_thoughts/<int:id>/edit", methods=["GET", "POST"])
+@login_required
 def edit_quick_thought(id):
     thought = QuickThought.query.get(id)
     form = QuickThoughtForm(obj=thought)
@@ -169,6 +174,7 @@ def edit_quick_thought(id):
 
 
 @app.route("/quick_thoughts/delete/<int:id>")
+@login_required
 def delete_quick_thought(id):
     thought = QuickThought.query.get(id)
     db.session.delete(thought)
