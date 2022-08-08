@@ -16,12 +16,20 @@ app = Flask(__name__)
 uri = os.getenv("DATABASE_URL")  # or other relevant config var
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(uri,  "sqlite:///my_webpage.db")
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.secret_key = os.environ.get("APP_SECRET_KEY")
 ckeditor = CKEditor(app)
 db.init_app(app)
 app.app_context().push()
 # db.create_all()
+
+db.session.add(
+    User(
+        username="admin",
+        password=generate_password_hash(os.environ.get("ADMINPASS"), method="pbkdf2:sha256", salt_length=8)
+    )
+)
+db.session.commit()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
