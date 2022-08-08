@@ -21,15 +21,15 @@ app.secret_key = os.environ.get("APP_SECRET_KEY")
 ckeditor = CKEditor(app)
 db.init_app(app)
 app.app_context().push()
-db.create_all()
-
-db.session.add(
-    User(
-        username="admin",
-        password=generate_password_hash(os.environ.get("ADMINPASS"), method="pbkdf2:sha256", salt_length=8)
-    )
-)
-db.session.commit()
+# db.create_all()
+#
+# db.session.add(
+#     User(
+#         username="admin",
+#         password=generate_password_hash(os.environ.get("ADMINPASS"), method="pbkdf2:sha256", salt_length=8)
+#     )
+# )
+# db.session.commit()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
