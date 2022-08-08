@@ -21,17 +21,10 @@ app.secret_key = os.environ.get("APP_SECRET_KEY")
 ckeditor = CKEditor(app)
 db.init_app(app)
 app.app_context().push()
-db.create_all()
+# db.create_all()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-user = User(
-    username="admin",
-    password=generate_password_hash(os.environ.get("ADMINPASS"))
-)
-db.session.add(user)
-db.session.commit()
 
 @login_manager.user_loader
 def load_user(user_id):
