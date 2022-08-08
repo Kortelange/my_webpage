@@ -17,7 +17,7 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///my_webpage.db"
-app.secret_key = "very secret"
+app.secret_key = os.environ.get("APP_SECRET_KEY")
 ckeditor = CKEditor(app)
 db.init_app(app)
 app.app_context().push()

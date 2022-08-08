@@ -17,6 +17,9 @@
     <ul>
         <li><a href="{{ url_for('get_quick_thoughts') }}">Quick thoughts</a></li>
         <li><a href="{{ url_for('get_books') }}">Books</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="logout">logout</a></li>
+        {% endif %}
     </ul>
 
     <div id="some" class="container-md">
