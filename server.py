@@ -44,7 +44,7 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.get(1)
         if check_password_hash(user.password, form.password.data):
             login_user(user)
             print("user logged in!")

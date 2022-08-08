@@ -17,6 +17,6 @@ class BookForm(FlaskForm):
     submit = SubmitField(label='Add book')
 
 class LoginForm(FlaskForm):
-    username = StringField("username", validators=[DataRequired()])
+    #username = StringField("username", validators=[DataRequired()])
     password = PasswordField("password", validators=[DataRequired()])
     submit = SubmitField(label="Login")
