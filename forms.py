@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FloatField
+from wtforms import StringField, SubmitField, FloatField, PasswordField
 from wtforms.validators import DataRequired
 from flask_ckeditor import CKEditor, CKEditorField
 
@@ -15,3 +15,8 @@ class BookForm(FlaskForm):
     body = CKEditorField('body')
     rating = FloatField('rating')
     submit = SubmitField(label='Add book')
+
+class LoginForm(FlaskForm):
+    username = StringField("username", validators=[DataRequired()])
+    password = PasswordField("password", validators=[DataRequired()])
+    submit = SubmitField(label="Login")

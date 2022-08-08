@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
 
 db = SQLAlchemy()
 class QuickThought(db.Model):
@@ -14,7 +15,7 @@ class Book(db.Model):
     body = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=True)
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(250), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)

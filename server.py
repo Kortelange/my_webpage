@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, url_for
 from dotenv import load_dotenv
 import os
 from fake_posts import test_posts
@@ -7,8 +7,9 @@ from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired
 from flask_ckeditor import CKEditor, CKEditorField
 from models import QuickThought, Book, db, User
-from forms import QuickThoughtForm, BookForm
+from forms import QuickThoughtForm, BookForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import LoginManager
 
 
 load_dotenv()
@@ -25,13 +26,27 @@ db.create_all()
 # db.session.add(admin)
 # db.session.commit()
 
+login_manager = LoginManager()
+login_manager.init_app(app)
 
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
 
 
 @app.route("/")
 def home():
     return render_template("index.html", fa_kit=os.environ.get("FA_KIT"))
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        print("hey I validated")
+        return redirect(url_for('home'))
+    return render_template("login.html", form=form)
 
 
 @app.route("/books")
