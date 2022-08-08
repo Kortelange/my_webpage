@@ -12,7 +12,7 @@ from datetime import date
 load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///my_webpage.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL",  "sqlite:///my_webpage.db")
 app.secret_key = os.environ.get("APP_SECRET_KEY")
 ckeditor = CKEditor(app)
 db.init_app(app)
