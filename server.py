@@ -21,7 +21,7 @@ app.secret_key = os.environ.get("APP_SECRET_KEY")
 ckeditor = CKEditor(app)
 db.init_app(app)
 app.app_context().push()
-# db.create_all()
+db.create_all()
 
 db.session.add(
     User(
