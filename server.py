@@ -26,13 +26,6 @@ db.create_all()
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-user = User(
-    username="admin",
-    password=generate_password_hash(os.environ.get("ADMINPASS"))
-)
-db.session.add(user)
-db.session.commit()
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(user_id)
