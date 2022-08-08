@@ -6,6 +6,8 @@ class QuickThought(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), unique=True, nullable=False)
     content = db.Column(db.Text, nullable=False)
+    add_date = db.Column(db.Date, nullable=False)
+    upd_date = db.Column(db.Date, nullable=False)
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,6 +16,9 @@ class Book(db.Model):
     short_review = db.Column(db.Text, nullable=True)
     body = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=True)
+    add_date = db.Column(db.Date, nullable=False)
+    upd_date = db.Column(db.Date, nullable=False)
+
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)

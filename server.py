@@ -10,6 +10,7 @@ from models import QuickThought, Book, db, User
 from forms import QuickThoughtForm, BookForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import LoginManager, login_user, logout_user, login_required
+from datetime import date
 
 
 load_dotenv()
@@ -47,7 +48,6 @@ def login():
         user = User.query.get(1)
         if check_password_hash(user.password, form.password.data):
             login_user(user)
-            print("user logged in!")
         return redirect(url_for('home'))
     return render_template("login.html", form=form)
 
@@ -75,7 +75,9 @@ def new_book():
                 author=form.author.data,
                 short_review=form.short_review.data,
                 body=form.body.data,
-                rating=form.rating.data
+                rating=form.rating.data,
+                add_date=date.today(),
+                upd_date=date.today()
             )
         db.session.add(
             book
@@ -113,6 +115,7 @@ def edit_book(id):
     form = BookForm(obj=book)
     if form.validate_on_submit():
         form.populate_obj(book)
+        book.upd_date = date.today()
         db.session.commit()
         return redirect(f"/books/{book.id}")
 
@@ -139,7 +142,9 @@ def new_quick_thought():
         db.session.add(
             QuickThought(
                 title=form.title.data,
-                content=form.content.data
+                content=form.content.data,
+                add_date=date.today(),
+                upd_date=date.today()
             )
         )
         db.session.commit()
@@ -160,6 +165,7 @@ def edit_quick_thought(id):
     form = QuickThoughtForm(obj=thought)
     if form.validate_on_submit():
         form.populate_obj(thought)
+        thought.upd_date = date.today()
         db.session.commit()
         return redirect("/quick_thoughts")
 
