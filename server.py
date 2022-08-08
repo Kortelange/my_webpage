@@ -1,10 +1,6 @@
 from flask import Flask, render_template, redirect, url_for
 from dotenv import load_dotenv
 import os
-from fake_posts import test_posts
-from flask_sqlalchemy import SQLAlchemy
-from wtforms import StringField, SubmitField, FloatField
-from wtforms.validators import DataRequired
 from flask_ckeditor import CKEditor, CKEditorField
 from models import QuickThought, Book, db, User
 from forms import QuickThoughtForm, BookForm, LoginForm
@@ -22,10 +18,6 @@ ckeditor = CKEditor(app)
 db.init_app(app)
 app.app_context().push()
 db.create_all()
-# admin = User(username="admin",
-#              password=generate_password_hash("jakob er kul", method='pbkdf2:sha256', salt_length=8))
-# db.session.add(admin)
-# db.session.commit()
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -176,7 +168,6 @@ def edit_quick_thought(id):
         title=f"Edit {thought.title}",
         action=f"/quick_thoughts/{thought.id}/edit"
     )
-
 
 
 @app.route("/quick_thoughts/delete/<int:id>")
