@@ -13,3 +13,8 @@ class Book(db.Model):
     short_review = db.Column(db.Text, nullable=True)
     body = db.Column(db.Text, nullable=False)
     rating = db.Column(db.Integer, nullable=True)
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(250), unique=True, nullable=False)
+    password = db.Column(db.String(150), nullable=False)

@@ -6,8 +6,9 @@ from flask_sqlalchemy import SQLAlchemy
 from wtforms import StringField, SubmitField, FloatField
 from wtforms.validators import DataRequired
 from flask_ckeditor import CKEditor, CKEditorField
-from models import QuickThought, Book, db
+from models import QuickThought, Book, db, User
 from forms import QuickThoughtForm, BookForm
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
 load_dotenv()
@@ -17,7 +18,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///my_webpage.db"
 app.secret_key = "very secret"
 ckeditor = CKEditor(app)
 db.init_app(app)
-# db.create_all()
+app.app_context().push()
+db.create_all()
+# admin = User(username="admin",
+#              password=generate_password_hash("jakob er kul", method='pbkdf2:sha256', salt_length=8))
+# db.session.add(admin)
+# db.session.commit()
+
+
+
 
 
 @app.route("/")
@@ -35,6 +44,7 @@ def get_books():
 def new_book():
     form = BookForm()
     if form.validate_on_submit():
+        print("Hello")
         book = Book(
                 title=form.title.data,
                 author=form.author.data,
