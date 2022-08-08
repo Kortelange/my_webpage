@@ -9,7 +9,7 @@ from flask_ckeditor import CKEditor, CKEditorField
 from models import QuickThought, Book, db, User
 from forms import QuickThoughtForm, BookForm, LoginForm
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_login import LoginManager
+from flask_login import LoginManager, login_user
 
 
 load_dotenv()
@@ -32,7 +32,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    return User.query.get(user_id)
 
 
 @app.route("/")
@@ -44,7 +44,10 @@ def home():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        print("hey I validated")
+        user = User.query.filter_by(username=form.username.data).first()
+        if check_password_hash(user.password, form.password.data):
+            login_user(user)
+            print("user logged in!")
         return redirect(url_for('home'))
     return render_template("login.html", form=form)
 
