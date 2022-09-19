@@ -21,3 +21,8 @@ ul {
     margin-top: min(3%, 20px);
     width: min(100%, 500px);
 }
+
+a i {
+    color: black;
+    text-decoration: none;
+}

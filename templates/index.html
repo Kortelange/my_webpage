@@ -12,11 +12,17 @@
 <div class="container-fluid">
     <img src="static/images/selfie.jpg" alt="selfie" id="selfie">
     <h3>Hello and welcome to my page!</h3>
-    <p>My name is Jakob, I like this and that, here is my page with some stuff i like</p>
+    <p>My name is Jakob, I am a math student at Univercity of Oslo. I love math and physics
+    and have recently become quite interested in cryptography. I am also VERY interested in Bitcoin.
+    In my sparetime I like playing piano, hanging with my girlfriend, dancing, climbing and doing
+    parkour with my friends (see my Instagram below for pictures if interested :) ). I made this page
+    to learn making webpages with flask, and I'll share summaries of books I read as well as simple thoughts
+    I pick up here and there. I am not really a front end developer so excuse the current lack of design,
+    I will work more on it if need ever be :)</p>
 
     <ul>
-        <li><a href="{{ url_for('get_quick_thoughts') }}">Quick thoughts</a></li>
-        <li><a href="{{ url_for('get_books') }}">Books</a></li>
+        <h5><li><a href="{{ url_for('get_quick_thoughts') }}">Quick thoughts</a></li></h5>
+        <h5><li><a href="{{ url_for('get_books') }}">Books</a></li></h5>
         {% if current_user.is_authenticated %}
         <li><a href="logout">logout</a></li>
         {% endif %}
@@ -25,9 +31,9 @@
     <div id="some" class="container-md">
         <h4>Social media and contact</h4>
         <div class="row">
-            <div class="col-4"><i class="fa-brands fa-instagram fa-2xl"></i></div>
-            <div class="col-4"><i class="fa-brands fa-twitter fa-2xl"></i></div>
-            <div class="col-4"><i class="fa-solid fa-envelope fa-2xl"></i></div>
+            <div class="col-4"><a href="https://www.instagram.com/jakoblundsgaard/?hl=en"><i class="fa-brands fa-instagram fa-2xl"></i></a></div>
+            <div class="col-4"><a href="https://github.com/Kortelange"><i class="fa-brands fa-github fa-2xl"></i></a></div>
+            <div class="col-4"><a href="mailto: jakob_korte@hotmail.com"><i class="fa-solid fa-envelope fa-2xl"></i></a></div>
         </div>
     </div>
 </div>

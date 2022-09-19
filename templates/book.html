@@ -5,14 +5,20 @@
 {% endblock %}
 {% block content %}
 <div class="container">
-    <div class="col-10 col-lg-8 mx-auto">
+    <div class="col-11 col-lg-8 mx-auto">
         <p>last update {{ book.upd_date.strftime("%b-%d-%Y") }}</p>
         <h3>Written by {{ book.author }}</h3>
         <h3>Short review: </h3>
-        <p>{{ book.short_review }}</p>
+        <div class="bg-light">
+            <p>{{ book.short_review }}</p>
+        </div>
+        {% if book.rating != 0: %}
         <h3>Rating: {{ book.rating }}</h3>
+        {% endif %}
         <h3>Long Review:</h3>
-        {{ book.body | safe }}
+        <div class="bg-light">
+            {{ book.body | safe }}
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -9,3 +9,8 @@ h1 {
     padding: 2% 3%;
     border-radius: 13%;
 }
+
+.book-title {
+    color: black;
+    text-decoration: none;
+}
